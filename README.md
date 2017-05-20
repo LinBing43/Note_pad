@@ -70,9 +70,7 @@ Pic 4.1.添加新笔记
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/editNewNote.png"
-width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/editNewNote.png" width="30%" height="30%" />
 
 Pic 4.2.编辑新笔记内容
 
@@ -80,9 +78,7 @@ Pic 4.2.编辑新笔记内容
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/Addsuccess.png"
-width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/Addsuccess.png" width="30%" height="30%" />
 
 Pic 4.3 新笔记添加成功
 
@@ -91,9 +87,7 @@ Pic 4.3 新笔记添加成功
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/addNotes.png"
-width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/addNotes.png" width="30%" height="30%" />
 
 Pic 5.1 选中要编辑的笔记
 
@@ -102,8 +96,7 @@ Pic 5.1 选中要编辑的笔记
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/editOldN.png"
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/editOldN.png"
 width="30%" height="30%" />
 
 Pic 5.2 编辑过去笔记
@@ -116,8 +109,7 @@ Pic 5.2 编辑过去笔记
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/notechangeSuccess.png"
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/notechangeSuccess.png"
 width="30%" height="30%" />
 
 Pic 5.3 笔记修改成功
@@ -132,9 +124,8 @@ Tip:每个分类只显示该分类下的笔记。
 
 <center>
 
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/
-showthiscategorydetail.png" width="30%" height="30%"
-/>
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/showthiscategorydetail.png"
+width="30%" height="30%" />
 
 Pic 6.备忘录分类
 
@@ -148,8 +139,7 @@ Tip：默认显示所有笔记（无论分类）
 
 <center>
 
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/SearchDefault.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/SearchDefault.png" width="30%" height="30%" />
 
 Pic 7.1 笔记查询
 
@@ -163,9 +153,7 @@ Pic 7.1 笔记查询
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/fuzzyS.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/fuzzyS.png" width="30%" height="30%" />
 
 Pic 7.2 笔记查询结果
 
@@ -177,9 +165,7 @@ Pic 7.2 笔记查询结果
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/BGCchoose.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/BGCchoose.png" width="30%" height="30%" />
 
 Pic 8.1 选择颜色
 
@@ -189,9 +175,7 @@ Pic 8.1 选择颜色
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/changedcolorpage.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/changedcolorpage.png" width="30%" height="30%" />
 
 Pic 8.2 颜色修改成功
 
@@ -207,9 +191,7 @@ Pic 8.2 颜色修改成功
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/main.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/main.png" width="30%" height="30%" />
 
 Pic 9.1 背景修改成功
 
@@ -217,8 +199,7 @@ Pic 9.1 背景修改成功
 
 <center>
 
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/choosePic.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/choosePic.png" width="30%" height="30%" />
 
 Pic 9.2 选中图片
 
@@ -226,9 +207,7 @@ Pic 9.2 选中图片
 
 <center>
 
-<img
-src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/changedbackgroundPic.png
-" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/changedbackgroundPic.png" width="30%" height="30%" />
 
 Pic 9.3 背景修改成功
 
