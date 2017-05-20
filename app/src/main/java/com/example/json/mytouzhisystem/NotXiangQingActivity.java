@@ -1,9 +1,14 @@
 package com.example.json.mytouzhisystem;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +18,7 @@ import com.example.json.mytouzhisystem.Bean.DataSaveEvent;
 import com.example.json.mytouzhisystem.Utils.DBUserInvestmentUtils;
 import com.example.json.mytouzhisystem.Utils.RxBus;
 import com.example.json.mytouzhisystem.constants.ConstKey;
+import com.example.json.mytouzhisystem.view.NoteAttribute;
 import com.example.json.mytouzhisystem.view.NoteEditText;
 
 import java.text.SimpleDateFormat;
@@ -43,6 +49,7 @@ public class NotXiangQingActivity extends BaseActivity {
     @BindView(R.id.rlNotXiangQingActivity)
     RelativeLayout rlNotXiangQingActivity;
 
+    private View layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,8 @@ public class NotXiangQingActivity extends BaseActivity {
         edtNotXiangQingTime.setText(CreatedTime1);
         edtNotXiangQingCount.setText(dbUserInvestment.getSign());
         tvNotXiangQingActivityTitle.setText(dbUserInvestment.getName()+"详情");
+        layout = (View)this.findViewById(R.id.noteEditText_add_content);
+
 
     }
 
@@ -82,11 +91,41 @@ public class NotXiangQingActivity extends BaseActivity {
             case R.id.btnNotXiangQingActivityCacel:
                 NotXiangQingActivity.this.finish();
                 break;
-            default:
-                break;
+
         }
     }
+    private void setBackgroundTwo(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(NotXiangQingActivity.this);
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.dialogcolor,null);
+        final LinearLayout linearLayout=(LinearLayout) view.findViewById(R.id.dialoglinear);
+        final int[] colorArray={
+                Color.parseColor("#FFFFFF"),//白
+                Color.parseColor("#FFF8DC"),//米色
+                Color.parseColor("#fcf9a4"),//黄
+                Color.parseColor("#abed65"),//绿
+                Color.parseColor("#E0FFFF"),//天蓝
+                Color.parseColor("#1cdaef"),//蓝绿
+                Color.parseColor("#fa77ab"),//粉色
+        };
+        for (int i=0;i<7;i++){
+            ImageView imageView=new ImageView(NotXiangQingActivity.this);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(90,120));
+            imageView.setBackgroundColor(colorArray[i]);
+            final int finalI = i;
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //NoteAttribute.snoteBackground=colorArray[finalI];
+                    layout.setBackgroundColor(colorArray[finalI]);
 
+                }
+            });
+            linearLayout.addView(imageView);
+        }
+        builder.setView(view).create().show();
+
+    }
     //保存备忘录
     public void saveNote() {
         //取得输入的内容
@@ -102,14 +141,14 @@ public class NotXiangQingActivity extends BaseActivity {
             dbUserInvestment.setSign(content);
             dbUserInvestment.setName(getIntent().getStringExtra("name"));
             DBUserInvestmentUtils.getInstance().updateData(dbUserInvestment);
-            Toast.makeText(NotXiangQingActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NotXiangQingActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
             RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
         }
 
 
     }
 
-    //返回当前的时间
+    //当前的时间
     public String formatTime() {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

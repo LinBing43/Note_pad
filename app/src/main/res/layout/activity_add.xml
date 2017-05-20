@@ -29,7 +29,7 @@
         android:layout_below="@+id/editText_add_title"
         android:editable="false"
         android:hint="记录的时间"
-        android:textColor="#00f00f" />
+        android:textColor="#00ff0f" />
     <!-- 备忘录内容 -->
     <view
         android:id="@+id/noteEditText_add_content"
@@ -52,18 +52,31 @@
         android:layout_centerHorizontal="true" >
         <!-- 保存按钮 -->
         <Button
+
             android:id="@+id/button_add_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="clickView"
             android:text="保  存" />
+
         <!-- 取消按钮 -->
         <Button
+
             android:id="@+id/button_add_cacel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/button_add_save"
             android:onClick="clickView"
             android:text="取  消" />
+        <!-- 更改颜色-->
+        <Button
+
+            android:id="@+id/button_background_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/button_add_cacel"
+            android:onClick="clickView"
+            android:text="背景颜色" />
     </RelativeLayout>
+
 </RelativeLayout>
