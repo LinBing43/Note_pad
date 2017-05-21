@@ -70,7 +70,7 @@ Pic 4.1.添加新笔记
 
 <center>
 
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/editNewNote.png" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/Note_pad/blob/master/editNewNote.png" width="30%" height="30%" />
 
 Pic 4.2.编辑新笔记内容
 
