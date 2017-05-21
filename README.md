@@ -1,6 +1,6 @@
 # Note_pad
 
-## 一、说明：
+# 一、说明：
 
 ## 1、Notpad简介：
 
@@ -12,8 +12,7 @@
 
   (1)、基本功能：时间戳，标题查询
 
-  (2)、附加功能：更换编辑笔记背景颜色、更换app背景图、笔记分类。
-  
+  (2)、附加功能：更换编辑笔记背景颜色、界面优化、笔记分类、app背景图更换。
 
 
 # 二、详细展示
@@ -424,7 +423,44 @@ RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
 
 ```
  
-## 数据库设置：
+## 文本编辑界面设置背景颜色
+
+```
+private void ChooseBackgroundColor(){
+  builder = new AlertDialog.Builder(AddActivity.this);
+  LayoutInflater inflater=getLayoutInflater();
+  View view=inflater.inflate(R.layout.dialogcolor,null);
+  final LinearLayout linearLayout=(LinearLayout) view.findViewById(R.id.dialoglinear);
+  final int[] colorArrayList={
+    Color.parseColor("#FFFFFF"),//白
+    Color.parseColor("#FFF8DC"),//米色  
+    Color.parseColor("#fcf9a4"),//黄   
+    Color.parseColor("#abed65"),//绿   
+    Color.parseColor("#E0FFFF"),//天蓝  
+    Color.parseColor("#1cdaef"),//蓝绿  
+    Color.parseColor("#fa77ab"),//粉色
+    };
+  for (int i=0;i<7;i++){
+    ImageView imageView=new ImageView(AddActivity.this);
+    imageView.setLayoutParams(new LinearLayout.LayoutParams(100,120));
+    imageView.setBackgroundColor(colorArrayList[i]);    
+    final int Color = i; 
+    imageView.setOnClickListener(new View.OnClickListener() { 
+    @Override        
+    public void onClick(View v) { 
+      layout.setBackgroundColor(colorArrayList[Color]);
+      } 
+    });
+    linearLayout.addView(imageView);
+  } 
+  builder.setView(view).create().show();
+}
+
+```
+
+## 数据库主要功能代码：
+
+### 1、数据设置：
 
 ```
 public class DBUserNote {
@@ -442,7 +478,139 @@ public class DBUserNote {
         this.noteType = noteType;
         this.sign = sign;
     }
+
+
 ```
 
+### 2、数据基本操作 （增删改查）
+
+```
+public class DBUserNoteUtils {
+
+    private DBUserNoteDao dbUserNoteDao ;
+    private static DBUserNoteUtils dbUserNoteUtils=null;
+
+    public DBUserNoteUtils  (Context context){
+        dbUserNoteDao= DaoManager.getInstance(context).getNewSession().getDBUserNoteDao();
+    }
+
+    public static DBUserNoteUtils getInstance(){
+        return dbUserNoteUtils;
+    }
+    public static void Init(Context context){
+        if(dbUserNoteUtils == null){
+            dbUserNoteUtils=new  DBUserNoteUtils(context);
+        }
+    }
+
+    /**
+     * 完成对数据库中插入一条数据操作
+     * @param dbUserNote
+     * @return
+     */
+    public void insertOneData(DBUserNote dbUserNote){
+        dbUserNoteDao.insertOrReplace(dbUserNote);
+    }
+
+      /**
+     * 完成对数据库中删除一条数据操作
+     * @param dbUserNote
+     * @return
+     */
+    public boolean deleteOneData(DBUserNote dbUserNote){
+        boolean flag = false;
+        try{
+            dbUserNoteDao.delete(dbUserNote);
+            flag = true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 完成对数据库中删除一条数据 ByKey操作
+     * @return
+     */
+    public boolean deleteOneDataByKey(long id){
+        boolean flag = false;
+        try{
+            dbUserNoteDao.deleteByKey(id);
+            flag = true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+       /**
+     * 完成对数据库更新数据操作
+     * @return
+     */
+    public boolean updateData(DBUserNote dbUserNote){
+        boolean flag = false;
+        try{
+            dbUserNoteDao.update(dbUserNote);
+            flag = true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 完成对数据库批量更新数据操作
+     * @return
+     */
+    public boolean updateManData(List<DBUserNote> dbUserNote){
+        boolean flag = false;
+        try{
+            dbUserNoteDao.updateInTx(dbUserNote);
+            flag = true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 完成对数据库查询数据操作
+     * @return
+     */
+    public DBUserNote queryData(long id) {
+        return dbUserNoteDao.load(id);
+    }
+
+    /**
+     * 返回对数据库查询所有笔记操作
+     * @return
+     */
+    public List<DBUserNote> queryData() {
+        return dbUserNoteDao.loadAll();
+    }
+
+    /**
+     *完成对数据库条件查询数据操作     * @return
+     */
+    public List<DBUserNote> queryDataDependMedia(String name) {
+        return dbUserNoteDao.queryBuilder().where(DBUserNoteDao.Properties.Name.eq(name)).build().list();
+    }
+
+    /**
+     * 完成对数据库按笔记标题查询数据操作
+     * @return
+     */
+    public List<DBUserNote> queryDataDependNotTitle(String noteType) {
+        return dbUserNoteDao.queryBuilder().where(DBUserNoteDao.Properties.NoteType.like("%"+noteType+"%")).build().list();
+    }
+}
 
  
+
+
+```
+
