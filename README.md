@@ -194,109 +194,255 @@ Pic 9.3 背景修改成功
 
 </center>
 
+
 # 三、主要功能实现代码：
 
+ 
+
 ## 点击添加笔记，编辑新笔记
-```
-//保存笔记
-  public void saveNote() {
-  //取得输入的内容 
-    String title = editText_add_title.getText().toString().trim();
-    String content = noteEditText_add_content.getText().toString().trim();
-    String time = editText_add_time.getText().toString().trim(); 
-  //内容和标题都不能为空
-    if ("".equals(title) || "".equals(content)) {
-      Toast.makeText(AddActivity.this, "名称和内容都不能为空", Toast.LENGTH_SHORT).show();
-  } else {
-    DBUserInvestment dbUserInvestment = new DBUserInvestment();
-    dbUserInvestment.setCreatTimeAsId(getTime());
-    dbUserInvestment.setInvestmentCount(title);
-    dbUserInvestment.setSign(content);
-    dbUserInvestment.setName(getIntent().getStringExtra("name"));
-    DBUserInvestmentUtils.getInstance().insertOneData(dbUserInvestment);
-    RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
-    Toast.makeText(AddActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
-    AddActivity.this.finish();
-    }
-  }
-  
-  //返回当前的时间
-  public String formatTime() {
-    Date d = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    String time = sdf.format(d);
-    return time;
-  }
-  public long getTime() {    return System.currentTimeMillis();//获取系统时间戳
-  }
+
 ```
 
+//保存笔记
+
+ 
+public void saveNote() {
+
+  //取得输入的内容 
+
+   
+String title = editText_add_title.getText().toString().trim();
+
+   
+String content = noteEditText_add_content.getText().toString().trim();
+
+   
+String time = editText_add_time.getText().toString().trim(); 
+
+  //内容和标题都不能为空
+
+   
+if ("".equals(title) || "".equals(content)) {
+
+     
+Toast.makeText(AddActivity.this, "名称和内容都不能为空", Toast.LENGTH_SHORT).show();
+
+  }
+else {
+
+    DBUserNote
+dbUserNote = new DBUserNote();
+
+    dbUserNote.setCreatTimeAsId(getTime());
+
+    dbUserNote.setnoteType(title);
+
+    dbUserNote.setSign(content);
+
+    dbUserNote.setName(getIntent().getStringExtra("name"));
+
+    DBUserNoteUtils.getInstance().insertOneData(dbUserNote);
+
+   
+RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
+
+   
+Toast.makeText(AddActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+
+   
+AddActivity.this.finish();
+
+    }
+
+  }
+
+  
+
+  //返回当前的时间
+
+ 
+public String formatTime() {
+
+   
+Date d = new Date();
+
+   
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd
+HH:mm:ss");
+
+   
+String time = sdf.format(d);
+
+   
+return time;
+
+  }
+
+ 
+public long getTime() {    return
+System.currentTimeMillis();//获取系统时间戳
+
+  }
+
+```
+
+
 ## 显示用户所选该类型下的笔记（以生活类为例）
+ 
 
 tip:其他类别笔记显示代码相同
 
 ```
 
-
 //获取生活类笔记的Listview
-public void getListViewData(){
 
-    resultDaoList = DBUserInvestmentUtils.getInstance().queryDataDependMedia("生活");
-    if (resultDaoList!=null&&resultDaoList.size()>0){
-        lvDBDailyLifeActivity.setVisibility(View.VISIBLE);
-        myAdapter = new MyKindAdapter(DBDailyLifeActivity.this);
-        myAdapter.setLists(resultDaoList);
-        lvDBDailyLifeActivity.setAdapter(myAdapter);
-    }else {
-        lvDBDailyLifeActivity.setVisibility(View.GONE);
+public void getListViewData(){
+   
+resultDaoList = DBUserNoteUtils.getInstance().queryDataDependMedia("生活");
+
+if (resultDaoList!=null&&resultDaoList.size()>0){
+lvDBDailyLifeActivity.setVisibility(View.VISIBLE);     
+myAdapter = new MyKindAdapter(DBDailyLifeActivity.this);
+myAdapter.setLists(resultDaoList);       
+lvDBDailyLifeActivity.setAdapter(myAdapter);
+
+}else {
+lvDBDailyLifeActivity.setVisibility(View.GONE);
     }
+
 }
+
+
+```
+
+## 点击已存在的笔记进行修改或删除
+
+```
+
+//点击已存在的笔记进行修改或删除，转到笔记编辑页面NotXiangQingActivity
 
  
-```
-## 点击已存在的笔记进行修改或删除
-```
-//点击已存在的笔记进行修改或删除，转到笔记编辑页面NotXiangQingActivity
-  public void setListViewClick()
-  {
-    lvDBRichangActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(DBRiChangActivity.this,NotXiangQingActivity.class);    
-        intent.putExtra("NotID",  resultDaoList.get(position).getCreatTimeAsId());
-        intent.putExtra("name", "日常");   
-        startActivity(intent);
-        }
-     });
-   }
-```
-## 笔记再次编辑主要函数：
+public void setListViewClick()
+
+  {
+
+   
+lvDBRichangActivity.setOnItemClickListener(new
+AdapterView.OnItemClickListener() {
+
+     
+@Override
+
+     
+public void onItemClick(AdapterView<?> parent, View view, int
+position, long id) {
+
+       
+Intent intent = new
+Intent(DBRiChangActivity.this,NotXiangQingActivity.class);    
+
+       
+intent.putExtra("NotID", 
+resultDaoList.get(position).getCreatTimeAsId());
+
+       
+intent.putExtra("name", "日常");   
+
+       
+startActivity(intent);
+
+       
+}
+
+    
+});
+
+   }
 
 ```
+
+## 笔记再次编辑主要函数： 
+
+```
+
 public void saveNote() {
-    //取得输入的内容
-    String title = edtNotXiangQingTitle.getText().toString().trim();
-    String content = edtNotXiangQingCount.getText().toString().trim();
-    //判断：内容和标题都不能为空
-    if ("".equals(title) || "".equals(content)) {
-        Toast.makeText(NotXiangQingActivity.this, "名称和内容都不能为空", Toast.LENGTH_SHORT).show();
-    } else {
-        DBUserInvestment dbUserInvestment = new DBUserInvestment();
-        dbUserInvestment.setCreatTimeAsId(getIntent().getLongExtra("NotID", 0));
-        dbUserInvestment.setInvestmentCount(title);
-        dbUserInvestment.setSign(content);
-        dbUserInvestment.setName(getIntent().getStringExtra("name"));    
-        //更新笔记至数据库
-        DBUserInvestmentUtils.getInstance().updateData(dbUserInvestment);
-        Toast.makeText(NotXiangQingActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-        RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
+
+   
+//取得输入的内容
+
+   
+String title = edtNotXiangQingTitle.getText().toString().trim();
+
+   
+String content = edtNotXiangQingCount.getText().toString().trim();
+
+   
+//判断：内容和标题都不能为空
+
+   
+if ("".equals(title) || "".equals(content)) {
+
+       
+Toast.makeText(NotXiangQingActivity.this, "名称和内容都不能为空",
+Toast.LENGTH_SHORT).show();
+
     }
+else {
+
+       
+DBUserNote dbUserNote = new DBUserNote();
+
+       
+dbUserNote.setCreatTimeAsId(getIntent().getLongExtra("NotID",
+0));
+
+       
+dbUserNote.setnoteType(title);
+
+       
+dbUserNote.setSign(content);
+
+       
+dbUserNote.setName(getIntent().getStringExtra("name"));    
+
+       
+//更新笔记至数据库
+
+       
+DBUserNoteUtils.getInstance().updateData(dbUserNote);
+
+       
+Toast.makeText(NotXiangQingActivity.this, "修改成功",
+Toast.LENGTH_SHORT).show();
+
+       
+RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
+
+    }
+
 }
 
 ```
-## 
+ 
+## 数据库设置：
 
+```
+public class DBUserNote {
+    @Id(autoincrement = false)
+    public long creatTimeAsId;  //把创建时间作为表的ID
+    @Property(nameInDb = "DBUserNote")
+    public String name;  // 每个笔记名称
+    public String noteType;//笔记类别
+    public String sign;  // 笔记内容
+    @Generated(hash = 1349221561)
+    public DBUserNote(long creatTimeAsId, String name, String noteType,
+            String sign) {
+        this.creatTimeAsId = creatTimeAsId;
+        this.name = name;
+        this.noteType = noteType;
+        this.sign = sign;
+    }
 ```
 
 
-```
+ 
