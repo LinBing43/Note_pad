@@ -76,35 +76,24 @@ Pic 4.2 新笔记添加成功
 
 </center>
 
-
-<center>
-
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/addNotes.png" width="30%" height="30%" />
-
-Pic 5.1 选中要编辑的笔记
-
-</center>
-
+## 可对已存在的笔记进行修改和删除
 
 <center>
 
 <img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/editOldN.png"
 width="30%" height="30%" />
 
-Pic 5.2 编辑过去笔记
+Pic 5.1 编辑过去笔记
 
 </center>
 
- 
-
-## 选中已存在的笔记可进行笔记再编辑和删除
 
 <center>
 
 <img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/notechangeSuccess.png"
 width="30%" height="30%" />
 
-Pic 5.3 笔记修改成功
+Pic 5.2 笔记修改成功
 
 </center>
 
