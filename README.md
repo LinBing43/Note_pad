@@ -57,14 +57,6 @@ Pic 3.日常类所有笔记
 
 ## 点击添加日常类笔记
 
-<center>
-
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/
-NewNoteDefault.png" width="30%" height="30%" />
-
-Pic 4.1.添加新笔记
-
-</center>
 
  
 
@@ -72,15 +64,15 @@ Pic 4.1.添加新笔记
 
 <img src="https://github.com/LinBing43/Note_pad/blob/master/editNewNote.png" width="30%" height="30%" />
 
-Pic 4.2.编辑新笔记内容
+Pic 4.1.编辑新笔记内容
 
 </center>
 
 <center>
 
-<img src="https://github.com/LinBing43/Note_pad/blob/master/screenshots/Addsuccess.png" width="30%" height="30%" />
+<img src="https://github.com/LinBing43/AndroidAssignment/blob/master/Addsuccess.png" width="30%" height="30%" />
 
-Pic 4.3 新笔记添加成功
+Pic 4.2 新笔记添加成功
 
 </center>
 
