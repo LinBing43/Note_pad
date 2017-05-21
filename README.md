@@ -229,60 +229,33 @@ Toast.makeText(AddActivity.this, "名称和内容都不能为空", Toast.LENGTH_
   }
 else {
 
-    DBUserNote
-dbUserNote = new DBUserNote();
-
+    DBUserNote dbUserNote = new DBUserNote();
     dbUserNote.setCreatTimeAsId(getTime());
-
-    dbUserNote.setnoteType(title);
-
+    dbUserNote.setnoteTitle(title);
     dbUserNote.setSign(content);
-
     dbUserNote.setName(getIntent().getStringExtra("name"));
-
     DBUserNoteUtils.getInstance().insertOneData(dbUserNote);
-
-   
-RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
-
-   
-Toast.makeText(AddActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
-
-   
-AddActivity.this.finish();
-
+    RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
+    Toast.makeText(AddActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+    AddActivity.this.finish();
     }
-
   }
 
-  
-
+ 
   //返回当前的时间
-
  
 public String formatTime() {
 
-   
-Date d = new Date();
-
-   
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd
-HH:mm:ss");
-
-   
-String time = sdf.format(d);
-
-   
-return time;
-
-  }
+  Date d = new Date(); 
+  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  String time = sdf.format(d); 
+  return time;
+ }
 
  
-public long getTime() {    return
-System.currentTimeMillis();//获取系统时间戳
-
-  }
-
+public long getTime() {    
+  return System.currentTimeMillis();//获取系统时间戳
+}
 ```
 
 
@@ -297,20 +270,17 @@ tip:其他类别笔记显示代码相同
 
 public void getListViewData(){
    
-resultDaoList = DBUserNoteUtils.getInstance().queryDataDependMedia("生活");
+  resultDaoList = DBUserNoteUtils.getInstance().queryDataDependMedia("生活");
+  if (resultDaoList!=null&&resultDaoList.size()>0){
+    lvDBDailyLifeActivity.setVisibility(View.VISIBLE);     
+    myAdapter = new MyKindAdapter(DBDailyLifeActivity.this);
+    myAdapter.setLists(resultDaoList);       
+    lvDBDailyLifeActivity.setAdapter(myAdapter);
 
-if (resultDaoList!=null&&resultDaoList.size()>0){
-lvDBDailyLifeActivity.setVisibility(View.VISIBLE);     
-myAdapter = new MyKindAdapter(DBDailyLifeActivity.this);
-myAdapter.setLists(resultDaoList);       
-lvDBDailyLifeActivity.setAdapter(myAdapter);
-
-}else {
-lvDBDailyLifeActivity.setVisibility(View.GONE);
-    }
-
+    }else {
+    lvDBDailyLifeActivity.setVisibility(View.GONE);
+   }
 }
-
 
 ```
 
@@ -321,42 +291,18 @@ lvDBDailyLifeActivity.setVisibility(View.GONE);
 //点击已存在的笔记进行修改或删除，转到笔记编辑页面NotXiangQingActivity
 
  
-public void setListViewClick()
-
-  {
-
-   
-lvDBRichangActivity.setOnItemClickListener(new
-AdapterView.OnItemClickListener() {
-
-     
-@Override
-
-     
-public void onItemClick(AdapterView<?> parent, View view, int
-position, long id) {
-
-       
-Intent intent = new
-Intent(DBRiChangActivity.this,NotXiangQingActivity.class);    
-
-       
-intent.putExtra("NotID", 
-resultDaoList.get(position).getCreatTimeAsId());
-
-       
-intent.putExtra("name", "日常");   
-
-       
-startActivity(intent);
-
-       
-}
-
-    
-});
-
-   }
+public void setListViewClick()  {
+  
+  lvDBRichangActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+      Intent intent = new Intent(DBRiChangActivity.this,NotXiangQingActivity.class);    
+      intent.putExtra("NotID", resultDaoList.get(position).getCreatTimeAsId());
+      intent.putExtra("name", "日常");   
+      startActivity(intent);
+    }
+  });
+ }
 
 ```
 
@@ -370,52 +316,44 @@ public void saveNote() {
 //取得输入的内容
 
    
-String title = edtNotXiangQingTitle.getText().toString().trim();
+  String title = edtNotXiangQingTitle.getText().toString().trim();
+  
+  String content = edtNotXiangQingCount.getText().toString().trim();
+
+   //判断：内容和标题都不能为空
 
    
-String content = edtNotXiangQingCount.getText().toString().trim();
-
-   
-//判断：内容和标题都不能为空
-
-   
-if ("".equals(title) || "".equals(content)) {
+   if ("".equals(title) || "".equals(content)) {
 
        
-Toast.makeText(NotXiangQingActivity.this, "名称和内容都不能为空",
-Toast.LENGTH_SHORT).show();
+  Toast.makeText(NotXiangQingActivity.this, "名称和内容都不能为空",
+  Toast.LENGTH_SHORT).show();
 
-    }
-else {
-
-       
-DBUserNote dbUserNote = new DBUserNote();
-
-       
-dbUserNote.setCreatTimeAsId(getIntent().getLongExtra("NotID",
-0));
+   }
+  else {
+     
+  DBUserNote dbUserNote = new DBUserNote();
+ dbUserNote.setCreatTimeAsId(getIntent().getLongExtra("NotID",0));       
+ dbUserNote.setnoteType(title);
 
        
-dbUserNote.setnoteType(title);
+  dbUserNote.setSign(content);
 
        
-dbUserNote.setSign(content);
-
-       
-dbUserNote.setName(getIntent().getStringExtra("name"));    
+  dbUserNote.setName(getIntent().getStringExtra("name"));    
 
        
 //更新笔记至数据库
 
        
-DBUserNoteUtils.getInstance().updateData(dbUserNote);
+  DBUserNoteUtils.getInstance().updateData(dbUserNote);
 
        
-Toast.makeText(NotXiangQingActivity.this, "修改成功",
-Toast.LENGTH_SHORT).show();
+  Toast.makeText(NotXiangQingActivity.this, "修改成功",
+  Toast.LENGTH_SHORT).show();
 
        
-RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
+  RxBus.getDefault().post(new DataSaveEvent(ConstKey.SAVE_DATA_SUCCESS));
 
     }
 
@@ -467,15 +405,15 @@ public class DBUserNote {
     @Id(autoincrement = false)
     public long creatTimeAsId;  //把创建时间作为表的ID
     @Property(nameInDb = "DBUserNote")
-    public String name;  // 每个笔记名称
-    public String noteType;//笔记类别
+    public String name;  // 每个笔记类别
+    public String NoteTitle;//笔记title
     public String sign;  // 笔记内容
     @Generated(hash = 1349221561)
-    public DBUserNote(long creatTimeAsId, String name, String noteType,
+    public DBUserNote(long creatTimeAsId, String name, String noteTitle,
             String sign) {
         this.creatTimeAsId = creatTimeAsId;
         this.name = name;
-        this.noteType = noteType;
+        this.noteTitle = noteTitle;
         this.sign = sign;
     }
 
@@ -485,6 +423,10 @@ public class DBUserNote {
 ### 2、数据基本操作 （增删改查）
 
 ```
+
+
+ 
+
 public class DBUserNoteUtils {
 
     private DBUserNoteDao dbUserNoteDao ;
@@ -594,7 +536,7 @@ public class DBUserNoteUtils {
     }
 
     /**
-     *完成对数据库条件查询数据操作     * @return
+     *完成对笔记类别查询数据操作     * @return
      */
     public List<DBUserNote> queryDataDependMedia(String name) {
         return dbUserNoteDao.queryBuilder().where(DBUserNoteDao.Properties.Name.eq(name)).build().list();
@@ -604,13 +546,9 @@ public class DBUserNoteUtils {
      * 完成对数据库按笔记标题查询数据操作
      * @return
      */
-    public List<DBUserNote> queryDataDependNotTitle(String noteType) {
-        return dbUserNoteDao.queryBuilder().where(DBUserNoteDao.Properties.NoteType.like("%"+noteType+"%")).build().list();
+    public List<DBUserNote> queryDataDependNotTitle(String noteTitle) {
+        return dbUserNoteDao.queryBuilder().where(DBUserNoteDao.Properties.NoteTitle.like("%"+noteTitle+"%")).build().list();
     }
 }
-
- 
-
-
 ```
 
